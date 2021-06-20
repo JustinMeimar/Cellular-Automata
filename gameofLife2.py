@@ -30,7 +30,7 @@ class Grid:
             self.grid[tup[0]][tup[1]] = my_cell
 
         self.set_coords()
-        for i in range(10):
+        for i in range(20):
             self.scan()
         
         
@@ -90,11 +90,12 @@ class Grid:
                 if cell.life == 1 and alive < 2:
                     cell.next = 0
                 elif cell.life == 1 and (alive == 2 or alive == 3):
-                    print("found")
+                    # print("found")
+                    pass
                 elif cell.life == 1 and alive > 3:
                     cell.next = 0
                 elif cell.life == 0 and alive == 3:
-                    print("zero to")
+                    # print("zero to")
                     cell.next = 1
         print(self)
                  
@@ -107,6 +108,8 @@ class Grid:
                 for cell in row:
                     if cell.life == None:
                         sub_str += ' . ' 
+                    if cell.life == 0:
+                        sub_str += " . "
                     else:
                         sub_str += f" {cell.life} "
                     # print(cell.life)
