@@ -1,0 +1,103 @@
+//"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"
+#include <stdio.h>
+#include <stdlib.h>
+
+#define WIDTH 5
+
+#define LENGTH 5
+
+struct cell{
+	int x;
+	int y;
+	int state;
+	struct cell *neighbors[3][3];
+//	neighbors = calloc(sizeof(struct cell*)* 8);
+};
+
+struct grid{
+
+	int width, length;
+	struct cell *cells[WIDTH][LENGTH];
+
+};
+
+void neighbors(struct cell* cur, struct grid* g){	
+	
+	int x = cur->x;
+	int y = cur->y;
+	
+	struct cell* test = g->cells[3][0];
+
+	printf("--%d, %d\n ", test->x,  test->y);
+	test->state = 1;	
+	for(int p= 0;p<3; p++){
+		for(int q=0; q<3; q++){
+			if(cur->neighbors[p][q] != 0){
+				printf("(%d, %d)", cur->neighbors[p][q]);
+			}
+		}	
+	}
+	for(int i =-1; i< 2; i++){
+		for(int j = -1; j< 2; j++){
+			//edge cases
+			if(i == 0 && j == 0){	
+				continue;
+			}
+			if(x + i < 0 || x + i >= WIDTH){
+				continue;		
+			}
+			else if(y +j < 0 || y + j >= LENGTH){
+				continue;		
+			}
+			else{
+	
+
+				//printf("%d, %d\n", i , j);
+				//cur->neighbors[i+1][j+1] = g->cells[(WIDTH * i + 1) + (j)];
+				
+			}
+		}
+	}
+	for(int p= 0;p<3; p++){
+		for(int q=0; q<3; q++){
+			if(cur->neighbors[p][q] != 0){
+				struct cell* ctemp= cur->neighbors[p][q];
+				printf("(%d, %d)", ctemp->x, ctemp->y);
+			}
+		}	
+	}
+	printf("\n");
+
+}
+
+void printGrid(struct grid* g){
+	
+	for(int i = 0; i< WIDTH; i++){
+		printf("\n");
+		for(int j = 0; j< LENGTH; j++){
+			printf("%d ", g->cells[i][j]->state);
+		}
+	}
+}
+int main(){
+	
+	struct grid* myGrid;	
+	myGrid = (struct grid*)malloc(sizeof(struct grid));
+
+	for(int i = 0; i< WIDTH; i++){
+		for(int j=0; j< LENGTH; j++){
+			struct cell* c = (struct cell*)malloc(sizeof(struct cell));
+			
+			c->x = j; 
+			c->y = i;
+			c->state = 0;	
+
+			myGrid->cells[i][j] = c;	
+			
+		}
+	}
+	neighbors(myGrid->cells[3], myGrid);		
+	printGrid(myGrid);
+	return 0;
+}
+
