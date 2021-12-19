@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 #define WIDTH 10
 #define LENGTH 10
@@ -45,7 +46,7 @@ struct Queue{
 struct grid* createGrid();
 void printGrid(struct grid* g);
 int neighbors(struct cell* cur, struct grid* g);
-
+void updateState(struct grid* g);
 /*
 //queue.c
 void Enqueue(struct Queue *Q,struct cell* element);
