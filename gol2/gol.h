@@ -9,6 +9,7 @@ struct cell{
 	int x;
 	int y;
 	int state;
+	int nextState;	
 	int neighbors;
 	//struct sLinkedList* neighbors;
 //	neighbors = calloc(sizeof(struct cell*)* 8);
@@ -45,8 +46,9 @@ struct Queue{
 //gol.c
 struct grid* createGrid();
 void printGrid(struct grid* g);
-int neighbors(struct cell* cur, struct grid* g);
-void updateState(struct grid* g);
+void neighbors(struct cell* cur, struct grid* g);
+void updateGridState(struct grid* g);
+void updateCellState(struct cell* cur);
 /*
 //queue.c
 void Enqueue(struct Queue *Q,struct cell* element);

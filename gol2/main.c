@@ -8,9 +8,11 @@ int main(){
 	g->cells[0][2]->state = 1;	
 	g->cells[1][2]->state = 1;
 
-		
-	printGrid(g);
-	updateState(g);	
+	for(int i = 0; i<3000; i++){
+		printGrid(g);
+		updateGridState(g);
+	}		
+	
 	//printf("\n%d\n", test->neighbors);
 	/*struct sLinkedList* list = create(0);
 	printf("%d", list->size);

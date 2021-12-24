@@ -1,50 +1,44 @@
 #include "gol.h"
 
 
-void updateCellState(struct cell* cur){
-	//printf("(%d)", n);		
-	int n = cur->neighbors;
-
+void updateCellState(struct cell* cur, int n){
+		
 	if(n < 2){
-		cur->nextState = 0;
+		printf("here");
+		cur->state = 0;
 	}
-	else if((n == 2 || n == 3) && cur->state == 1){
-		cur->nextState = 1;	
+	if((n == 2 || n == 3) && cur->state == 1){
+		cur->state = 1;	
 	}
-	else if(n > 3 && cur->state == 1){
-		cur->nextState = 0;	
+	if(n > 3 && cur->state == 1){
+		cur->state = 0;	
 	}
-	else if((cur->state == 0) && n > 3){
-		cur->nextState = 1;	
+	if((cur->state == 0) && n > 3){
+		cur->state = 1;	
 	}
-}
 
+}
 void updateGridState(struct grid* g){
 	//itterate through items in grid, collect neighbors, make decision based off
-	printf("\n");
+	printf("\n");	
 	for(int x = 0; x< WIDTH; x++){
 		//printf("\n");	
-		for(int y = 0; y < LENGTH; y++){	
+		for(int y = 0; y < LENGTH; y++){
+			
 			struct cell* cur = g->cells[x][y];
-			neighbors(cur, g);	
-			updateCellState(cur);		
+			int n = neighbors(cur, g);
+
+			updateCellState(cur, n);	
 		}
 	}
-	for(int i = 0; i< WIDTH; i++){
-		//printf("\n");	
-		for(int j = 0; j < LENGTH; j++){	
-			struct cell* cur = g->cells[i][j];
-			cur->state = cur->nextState;
-		}
-	}	
 }
 
-void neighbors(struct cell* cur, struct grid* g){	
+int neighbors(struct cell* cur, struct grid* g){	
 	
 	int x = cur->x;
 	int y = cur->y;
 	int count = 0;
-	cur->neighbors = 0;
+
 	for(int i =-1; i< 2; i++){
 		for(int j = -1; j< 2; j++){	
 			//edge cases
@@ -58,13 +52,15 @@ void neighbors(struct cell* cur, struct grid* g){
 				continue;		
 			}
 			else{
+				//printf("%d, %d.... %d %d\n", i , j, i+x, j+y);
+				//struct cell* test = (struct cell*)malloc(sizeof(struct cell
 				if(g->cells[j+y][i+x]->state == 1){
 					cur->neighbors++;
 				}				
 			}
 		}
 	}
-	return;
+	return 1;
 }
 
 void printGrid(struct grid* g){
